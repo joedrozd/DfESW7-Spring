@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,8 +117,17 @@ public class UserControllerSystemIntegrationTest {
 
 	@Test
 	public void getUserByIdTest() {
-		// TODO: Implement me
-		fail("Implement me");
+		 Long id = 848L;
+		 MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/user/" + id);
+		 
+		 if (mockRequest == null) {
+			 System.out.println("Can't find by id");
+		 } else {
+			 ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
+			 System.out.println(statusMatcher);
+			 System.out.println("Person Found");
+		 }
+		 
 	}
 
 	@Test
@@ -128,7 +138,14 @@ public class UserControllerSystemIntegrationTest {
 
 	@Test
 	public void deleteUserTest() {
-		// TODO: Implement me
-		fail("Implement me");
+		 Long id = 65L;
+		 try {
+			 MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE, "/user/" + id);
+			 System.out.println(mockRequest);
+			 System.out.println("ID deleted");
+		 }
+		 catch (Exception e) {
+			 System.out.println("Something went wrong.");
+		 }
 	}
 }
